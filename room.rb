@@ -1,28 +1,34 @@
 class Room
 
-attr_reader :number
+attr_reader :number, :num_of_places
 #attr_accessor :guests
 
-def initialize(number)
+def initialize(number, num_of_places)
   @number = number
   @guests = []
   @songs = []
+  @num_of_places = num_of_places
 end
 
 def count_guests
   return @guests.size()
 end
 
-def check_in_guest(name)
-  @guests.push(name)
+def check_in_guest(guest)
+  if places_left?() > 0
+   @guests.push(guest)
+   guest.money -= 10
+ else
+   return "No more places"
+ end
 end
 
-def check_out_guest(name)
-  @guests.delete(name)
+def check_out_guest(guest)
+  @guests.delete(guest)
 end
 
-def guest_inside?(name)
-  return @guests.include?(name)
+def guest_inside?(guest)
+  return @guests.include?(guest)
 end
 
 def count_songs
@@ -31,6 +37,10 @@ end
 
 def add_song(title)
   @songs.push(title)
+end
+
+def places_left?
+  return @num_of_places - @guests.size()
 end
 
 
