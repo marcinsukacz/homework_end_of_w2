@@ -1,10 +1,39 @@
 class Room
 
 attr_reader :number
+#attr_accessor :guests
 
 def initialize(number)
   @number = number
+  @guests = []
+  @songs = []
 end
+
+def count_guests
+  return @guests.size()
+end
+
+def check_in_guest(name)
+  @guests.push(name)
+end
+
+def check_out_guest(name)
+  @guests.delete(name)
+end
+
+def guest_inside?(name)
+  return @guests.include?(name)
+end
+
+def count_songs
+  return @songs.count()
+end
+
+def add_song(title)
+  @songs.push(title)
+end
+
+
 
 end
 
