@@ -1,17 +1,25 @@
 class Guest
 
-attr_reader :name
-attr_accessor :money 
+attr_reader :name, :favourite_song
+attr_accessor :money
 
-def initialize(name, money)
+def initialize(name, money, favourite_song)
   @name = name
   @money = money
+  @favourite_song = favourite_song
 end
 
+def cheer(room)
+  if room.song_in?(@favourite_song)
+    return "Whoo!"
+  end
 end
 
 
 
+
+
+end
 # You have been approached to build software for a Karaoke bar. Specifically, they want you to build a software for checking guests in and out, plus handling songs.
 #
 # Your program should be test driven and should be able to:

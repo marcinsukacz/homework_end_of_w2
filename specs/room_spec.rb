@@ -8,11 +8,11 @@ class TestRoom < MiniTest::Test
 
   def setup
     @room_1 = Room.new("1", 4)
-    @guest_1 = Guest.new("John", 30)
-    @guest_2 = Guest.new("Josh", 40)
-    @guest_3 = Guest.new("Jason", 50)
-    @guest_4 = Guest.new("Jordan", 60)
-    @guest_5 = Guest.new("Marcin", 70)
+    @guest_1 = Guest.new("John", 30, "Hey Joe")
+    @guest_2 = Guest.new("Josh", 40, "Yesterday")
+    @guest_3 = Guest.new("Jason", 50, "")
+    @guest_4 = Guest.new("Jordan", 60, "")
+    @guest_5 = Guest.new("Marcin", 70, "")
 
   end
 
@@ -27,6 +27,12 @@ class TestRoom < MiniTest::Test
   def test_room_can_add_guests__yes
     @room_1.check_in_guest(@guest_1)
     assert_equal(1, @room_1.count_guests())
+  end
+
+  def test_room_can_track_income
+    @room_1.check_in_guest(@guest_1)
+    @room_1.check_in_guest(@guest_2)
+    assert_equal(20, @room_1.income)
   end
 
   def test_room_can_add_guests__no
@@ -72,6 +78,18 @@ class TestRoom < MiniTest::Test
   def test_can_charge_guest
     @room_1.check_in_guest(@guest_1)
     assert_equal(20, @guest_1.money)
+  end
+
+  def test_song_in?
+    #@room_1.check_in_guest(@guest_1)
+    @room_1.add_song("Hey Joe")
+    assert_equal(true, @room_1.song_in?("Hey Joe"))
+  end
+
+  def test_guest_can_cheer
+    @room_1.check_in_guest(@guest_1)
+    @room_1.add_song("Hey Joe")
+    assert_equal("Whoo!", @guest_1.cheer(@room_1))
   end
 
   # def test_if_no_spaces
